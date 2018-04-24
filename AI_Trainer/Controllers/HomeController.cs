@@ -5,32 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AI_Trainer.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AI_Trainer.Controllers
 {
     public class HomeController : Controller
     {
+        private AIContext _context;
+
+        public HomeController(AIContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        [Route("Home")]
         public IActionResult Index()
         {
-            return View();
-        }
+            int? loggedId = HttpContext.Session.GetInt32("loggedId");
+            if (loggedId == null)
+            {
+                return RedirectToAction("Index", "LoginReg");
+            }
+            User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
+            ViewBag.Logged = logged;
             return View();
         }
 

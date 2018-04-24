@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AI_Trainer.Hubs;
+using AI_Trainer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AI_Trainer
 {
@@ -31,7 +34,10 @@ namespace AI_Trainer
             });
 
 
+            services.AddDbContext<AIContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +52,15 @@ namespace AI_Trainer
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chathub");
+            });
 
             app.UseMvc(routes =>
             {

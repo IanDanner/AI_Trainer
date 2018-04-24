@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Register and Login";
+}
+
+<div class="Registration">
+    <h1>Registration</h1>
+    @model AI_Trainer.Models.UserRegister
+    <form action="/register" method="post">
+        <ul>
+            <span asp-validation-for="FirstName"></span>
+            <li>
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" />
+            </li>
+            <span asp-validation-for="LastName"></span>
+            <li>
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" />
+            </li>
+            <span asp-validation-for="Email"></span>
+            <span>@TempData["Rerror"]</span>
+            <li>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+            </li>
+            <span asp-validation-for="Password"></span>
+            <li>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+            </li>
+            <span asp-validation-for="PasswordCF"></span>
+            <li>
+                <label asp-for="PasswordCF"></label>
+                <input asp-for="PasswordCF" />
+            </li>
+            <li><button type="submit">Register</button></li>
+        </ul>
+    </form>
+</div>
+<div class="Login">
+    <h1>Login</h1>
+    <form action="/login" method="post">
+        <ul>
+            <span>@TempData["error"]</span>
+            <li>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+            </li>
+            <li>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+            </li>
+            <li><button type="submit">Login</button></li>
+        </ul>
+    </form>
+</div>

@@ -34,9 +34,9 @@ namespace AI_Trainer
             });
 
 
-            services.AddDbContext<AIContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<AIContext>(options => options.UseSqlite("Data Source=AI_Trainer.db"));
             services.AddSignalR();
         }
 

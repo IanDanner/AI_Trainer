@@ -59,6 +59,17 @@ namespace AI_Trainer.Controllers
             return View();
         }
 
+		[HttpGet]
+		[Route("Play")]
+		public IActionResult Play()
+		{
+			int? loggedId = HttpContext.Session.GetInt32("loggedId");
+			if (loggedId == null)
+			{
+				return RedirectToAction("Index", "LoginReg");
+			}
+			return View("GeneticAlgorithm");
+		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

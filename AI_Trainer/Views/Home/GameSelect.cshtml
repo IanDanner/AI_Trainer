@@ -9,8 +9,6 @@
     <span>@TempData["Error"]</span>
     <div class="col-6">&nbsp;</div>
     <div class="col-6">
-        <label>Username <input type="text" id="PlayerName" /></label>
-        <label>AI Name <input type="text" id="AIName" /></label>
         <select id="GameId">
             @foreach (Game game in ViewBag.Games)
             {
@@ -58,10 +56,12 @@
 <div class="container">
     <div class="row">&nbsp;</div>
     <div class="row">
+        <h4>GameHub Messanger</h4>
         <div class="col-6">&nbsp;</div>
         <div class="col-6">
             <input type="hidden" id="userInput" value="@ViewBag.Logged.FirstName" />
             Message...<input type="text" id="messageInput" />
+            <input type="hidden" id="messagerID" value="0" />
             <input type="button" id="sendButton" value="Send Message" />
         </div>
     </div>
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-6">&nbsp;</div>
         <div class="col-6">
-            <ul id="messagesList"></ul>
+            <ul id="messanger0"></ul>
         </div>
     </div>
 </div>

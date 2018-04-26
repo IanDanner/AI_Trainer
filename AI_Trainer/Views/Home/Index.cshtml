@@ -7,6 +7,7 @@
         <div class="col-6">&nbsp;</div>
         <div class="col-6">
             <input type="hidden" id="userInput" value="@ViewBag.Logged.FirstName" />
+            <input type="hidden" id="messagerID" value="@ViewBag.Game.Id" />
             <h4>Welcome @ViewBag.Logged.FirstName</h4>
             <br />
             Message...<input type="text" id="messageInput" />
@@ -21,10 +22,13 @@
     <div class="row">
         <div class="col-6">&nbsp;</div>
         <div class="col-6">
-            <ul id="messagesList"></ul>
+            @{ 
+                string message = "messanger" + ViewBag.Game.Id;
+            }
+            <ul id=@message></ul>
         </div>
     </div>
 </div>
 <script src="~/lib/signalr/signalr.js"></script>
-<script src="~/js/chat.js"></script>
-@*<script src="~/js/es5-chat.js"></script>*@
+<script src="~/js/gamechat.js"></script>
+@*<script src="~/js/es5-gamechat.js"></script>*@

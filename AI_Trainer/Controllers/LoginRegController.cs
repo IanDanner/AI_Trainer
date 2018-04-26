@@ -32,12 +32,6 @@ namespace C_SharpBelt.Controllers
                     return View("Index", user);
                 }
 
-                if (!(user.Password.Any(c => char.IsLetter(c)) && user.Password.Any(c => char.IsDigit(c)) && user.Password.Any(c => char.IsSymbol(c))))
-                {
-                    TempData["Rerror"] = "Password must contain 1 number, 1 letter, and a special character";
-                    return View("Index", user);
-                }
-
                 string hashed = HashedPass(user.Password);
 
                 User newUser = new User

@@ -18,7 +18,7 @@ namespace AI_Trainer.Controllers
         }
 
         [HttpGet]
-        [Route("Home")]
+        [Route("GameSelect")]
         public IActionResult GameSelect()
         {
             int? loggedId = HttpContext.Session.GetInt32("loggedId");
@@ -30,7 +30,7 @@ namespace AI_Trainer.Controllers
 
             User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
 
-            List<Game> games = _context.games.Include(people => people.Players).ThenInclude(who => who.PlayerInfo).OrderBy(time => time.Created_at).ToList();
+            List<Game> games = _context.games.Include(person => person.Creator).Include(people => people.Players).ThenInclude(who => who.PlayerInfo).OrderBy(time => time.Created_at).ToList();
 
             ViewBag.Logged = logged;
             ViewBag.Games = games;
@@ -38,8 +38,8 @@ namespace AI_Trainer.Controllers
         }
 
         [HttpGet]
-        [Route("Game")]
-        public IActionResult Index()
+        [Route("Game/{gameId}")]
+        public IActionResult Index(int gameId)
         {
             int? loggedId = HttpContext.Session.GetInt32("loggedId");
             if (loggedId == null)
@@ -49,10 +49,13 @@ namespace AI_Trainer.Controllers
             
 
             User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
+            Game game = _context.games.Where(we => we.Id == gameId).SingleOrDefault();
 
             HttpContext.Session.SetString("UserName", logged.FirstName);
 
             ViewBag.Logged = logged;
+            ViewBag.Game = game;
+
             return View();
         }
 

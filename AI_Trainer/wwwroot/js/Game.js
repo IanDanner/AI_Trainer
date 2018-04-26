@@ -148,11 +148,11 @@ function runGen()
 	{
 		population.Score();
 		population.NewSetSingle();
-		count++;
+		random++;
 		console.log(random);
 	}
-	random++;
-	if (random == 10)
+	count++;
+	if (count == 10)
 	{
 		Finale();
     }

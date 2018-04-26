@@ -105,10 +105,6 @@ class enemyBoard extends GameState
 	}
 }
 var gameState;
-var population;
-var count = 0;
-var setting = false;
-var preSet;
 var selfBest;
 var selfChallenge;
 var enemyBest;
@@ -121,53 +117,3 @@ $(document).ready(function ()
 	var enemyGameState = new enemyBoard();
 	enemyGameState.PlayAIMatch(enemyBest, enemyChallenge);
 });
-
-$(document).keypress(function (e)
-{
-	if (setting)
-	{
-		if (e.keyCode === 119)
-		{
-			preSet.moveSet.push(1);
-		}
-		else if (e.keyCode === 100)
-		{
-			preSet.moveSet.push(0);
-		}
-		else if (e.keyCode === 115)
-		{
-			preSet.moveSet.push(3);
-		}
-		else if (e.keyCode === 97)
-		{
-			preSet.moveSet.push(2)
-		}
-		preSet.nextMove(gameState.player1, gameState.player2, gameState.board);
-		console.log(preSet.moveSet, preSet.moveCount);
-		gameState.Render();
-	}
-});
-
-function runGen()
-{
-	var random = 0;
-	while (random < 25)
-	{
-		population.Score();
-		population.NewSetSingle();
-		count++;
-		console.log(random);
-		random++;
-	}
-	gameState = new GameState();
-	population.nodes[0].score = 0;
-	gameState.PlayAIMatch(preSet, population.nodes[0], true);
-	console.log(population.nodes[0].score)
-}
-
-function setPreSet()
-{
-	setting = true;
-	gameState = new GameState();
-	preSet = new PreSet([], 2);
-}

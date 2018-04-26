@@ -171,6 +171,11 @@ function setPreSet()
 
 function runEnemy()
 {
+	if (enemyBest === null)
+	{
+		alert("Your opponent has not run a generation yet")
+		return;
+	}
 	var enemyGameState = new enemyBoard();
 	enemyGameState.PlayAIMatch(preSet, enemyBest);
 }
@@ -178,5 +183,5 @@ function runEnemy()
 function Finale()
 {
 	//send best node and current preSet to server
-
+	window.location.href = window.location.href + "/Finale";
 }

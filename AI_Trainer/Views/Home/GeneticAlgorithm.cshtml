@@ -1,46 +1,8 @@
 ﻿<script src="~/js/GeneticAlgorithm.js"></script>
 <script src="~/js/Game.js"></script>
-<style>
-	body
-	{
-		text-align: center;
-	}
-	.board
-	{
-		width: 500px;
-		height: 500px;
-		display: inline-block;
-	}
-	.gridRow
-	{
-		height: 50px;
-	}
-	.gridPart
-	{
-		width: 50px;
-		height: 50px;
-		margin: 0px;
-		padding: 0px;
-		display: inline-block;
-	}
-	.empty
-	{
-		background-color: blue;
-	}
-	.player
-	{
-		background-color: red;
-	}
-	.takenSpot1
-	{
-		background-color: green;
-	}
-	.takenSpot2
-	{
-		background-color: orange;
-	}
-</style>
 <div class="board"></div>
 <p class="victory"></p>
 <button class="runGen" onclick="runGen()">Run Generation</button>
 <button class="setPreSet" onclick="setPreSet()">Set PreSet MoveSet</button>
+<div class="enemyBoard"></div>
+<button onclick="runEnemy()">Run Enemy AI</button>

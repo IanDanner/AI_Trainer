@@ -1,38 +1,38 @@
-'use strict';
+﻿'use strict';
 class GameState
 {
 	constructor()
 	{
 		this.board = new Array(mapLength);
-		for(var iii = 0; iii < this.board.length; iii++)
+		for (var iii = 0; iii < this.board.length; iii++)
 		{
 			this.board[iii] = new Array(mapLength);
-			for(var zzz = 0; zzz < this.board[iii].length; zzz++)
+			for (var zzz = 0; zzz < this.board[iii].length; zzz++)
 			{
 				this.board[iii][zzz] = 0;
 			}
 		}
 		this.board[0][0] = 1;
 		this.board[9][9] = 1;
-		this.player1 = {x:0, y:0, direction:3};
-		this.player2 = {x:9, y:9, direction:1};
+		this.player1 = { x: 0, y: 0, direction: 3 };
+		this.player2 = { x: 9, y: 9, direction: 1 };
 		$(".victory").text("");
 	}
 	Render()
 	{
 		var board = "";
-		for(var iii = 0; iii < this.board.length; iii++)
+		for (var iii = 0; iii < this.board.length; iii++)
 		{
 			board += "<div class='gridRow'>";
-			for(var zzz = 0; zzz < this.board[iii].length; zzz++)
+			for (var zzz = 0; zzz < this.board[iii].length; zzz++)
 			{
-				if(this.board[iii][zzz] === 0)
+				if (this.board[iii][zzz] === 0)
 					board += "<div class='gridPart empty'></div>";
-				if(this.board[iii][zzz] === 1)
+				if (this.board[iii][zzz] === 1)
 					board += "<div class='gridPart player'></div>";
-				if(this.board[iii][zzz] === 2)
+				if (this.board[iii][zzz] === 2)
 					board += "<div class='gridPart takenSpot1'></div>";
-				if(this.board[iii][zzz] === 3)
+				if (this.board[iii][zzz] === 3)
 					board += "<div class='gridPart takenSpot2'></div>";
 			}
 			board += "</div>"
@@ -43,27 +43,27 @@ class GameState
 	{
 		var won = false;
 		var random = 0;
-		while(random !== Player1.moveSet.length)
+		while (random !== Player1.moveSet.length)
 		{
 			var status = Player1.nextMove(this.player1, this.player2, this.board)
-			if(status === 1)
+			if (status === 1)
 			{
 				$(".victory").text("Player 1 Wins!");
 				Player2.score += 1000;
 				break;
 			}
-			if(status === 2)
+			if (status === 2)
 			{
 				$(".victory").text("Player 2 Wins!");
 				break;
 			}
 			status = Player2.nextMove(this.player2, this.player1, this.board)
-			if(status === 1)
+			if (status === 1)
 			{
 				$(".victory").text("Player 2 Wins");
 				break;
 			}
-			if(status === 2)
+			if (status === 2)
 			{
 				$(".victory").text("Player 1 Wins!");
 				Player2.score += 1000;
@@ -71,7 +71,7 @@ class GameState
 			}
 			random++;
 		}
-		if(render === true)
+		if (render === true)
 			this.Render();
 	}
 }
@@ -109,17 +109,24 @@ var population;
 var count = 0;
 var setting = false;
 var preSet;
+var selfBest;
+var selfChallenge;
 var enemyBest;
-$(document).ready(function()
+var enemyChallenge
+$(document).ready(function ()
 {
-	population = new Population(3);
+	//get info from server selfbest/enemybest and selfChallenge/enemyChallenge
+	gameState = new GameState();
+	gameState.PlayAIMatch(selfBest, enemyChallenge);
+	var enemyGameState = new enemyBoard();
+	enemyGameState.PlayAIMatch(enemyBest, enemyChallenge);
 });
 
-$(document).keypress(function(e)
+$(document).keypress(function (e)
 {
-	if(setting)
+	if (setting)
 	{
-		if(e.keyCode === 119)
+		if (e.keyCode === 119)
 		{
 			preSet.moveSet.push(1);
 		}
@@ -144,17 +151,13 @@ $(document).keypress(function(e)
 function runGen()
 {
 	var random = 0;
-	while(random < 25)
+	while (random < 25)
 	{
 		population.Score();
 		population.NewSetSingle();
 		count++;
 		console.log(random);
-	}
-	random++;
-	if (random == 10)
-	{
-		Finale();
+		random++;
 	}
 	gameState = new GameState();
 	population.nodes[0].score = 0;
@@ -167,16 +170,4 @@ function setPreSet()
 	setting = true;
 	gameState = new GameState();
 	preSet = new PreSet([], 2);
-}
-
-function runEnemy()
-{
-	var enemyGameState = new enemyBoard();
-	enemyGameState.PlayAIMatch(preSet, enemyBest);
-}
-
-function Finale()
-{
-	//send best node and current preSet to server
-
 }

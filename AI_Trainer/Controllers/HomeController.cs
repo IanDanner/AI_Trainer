@@ -50,13 +50,11 @@ namespace AI_Trainer.Controllers
 
             User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
             Game game = _context.games.Where(we => we.Id == gameId).SingleOrDefault();
-
-            HttpContext.Session.SetString("UserName", logged.FirstName);
-
+            
             ViewBag.Logged = logged;
             ViewBag.Game = game;
 
-            return View();
+            return View("GeneticAlgorithm");
         }
 
 		[HttpGet]

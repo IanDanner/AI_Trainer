@@ -155,8 +155,9 @@ function runGen()
 	if (random == 10)
 	{
 		Finale();
-	}
-	gameState = new GameState();
+    }
+    //jklhjklhjkl
+    gameState = new GameState();
 	population.nodes[0].score = 0;
 	gameState.PlayAIMatch(preSet, population.nodes[0], true);
 	console.log(population.nodes[0].score)

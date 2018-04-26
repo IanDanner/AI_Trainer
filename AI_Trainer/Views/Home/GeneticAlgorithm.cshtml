@@ -1,4 +1,8 @@
-﻿<script src="~/js/GeneticAlgorithm.js"></script>
+﻿@{
+    ViewData["Title"] = "Game Page";
+}
+
+<script src="~/js/GeneticAlgorithm.js"></script>
 <script src="~/js/Game.js"></script>
 <div class="board"></div>
 <p class="victory"></p>
@@ -6,3 +10,35 @@
 <button class="setPreSet" onclick="setPreSet()">Set PreSet MoveSet</button>
 <div class="enemyBoard"></div>
 <button onclick="runEnemy()">Run Enemy AI</button>
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <input type="hidden" id="userInput" value="@ViewBag.Logged.FirstName" />
+            <input type="hidden" id="messagerID" value="@ViewBag.Game.Id" />
+            <h4>Welcome @ViewBag.Logged.FirstName</h4>
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            @{
+                string message = "messanger" + ViewBag.Game.Id;
+            }
+            <ul id=@message></ul>
+        </div>
+    </div>
+</div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/gamechat.js"></script>
+@*<script src="~/js/es5-gamechat.js"></script>*@

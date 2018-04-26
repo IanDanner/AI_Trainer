@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +55,7 @@ namespace AI_Trainer
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/chathub");
+                routes.MapHub<GameHub>("/gamehub");
             });
 
             app.UseMvc(routes =>

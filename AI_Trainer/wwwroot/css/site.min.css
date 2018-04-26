@@ -1,1 +1,64 @@
 body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}.carousel-caption p{font-size:20px;line-height:1.4}.carousel-inner .item img[src$=".svg"]{width:100%}#qrCode{margin:15px}@media screen and (max-width:767px){.carousel-caption{display:none}}
+
+
+.Registration, .Login {
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+    text-align: right;
+}
+
+ul {
+    text-align: right;
+    list-style-type: none;
+}
+
+span {
+    color: red;
+}
+
+.logged {
+    padding-top: 8px;
+    color: white;
+    text-align: right;
+    margin-left: 100px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 5px;
+}
+
+.product img, image {
+    width: 100px;
+}
+
+.product {
+    width: 180px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+}
+
+.newProduct {
+    width: 20%;
+    display: inline-block;
+}
+
+.allProducts {
+    margin-left: 10px;
+    width: 78%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+textarea {
+    resize: none;
+}

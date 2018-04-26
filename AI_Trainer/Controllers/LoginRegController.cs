@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AI_Trainer.Models;
-using Newtonsoft.Json;
 using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore;
 
 namespace C_SharpBelt.Controllers
 {
@@ -59,7 +54,7 @@ namespace C_SharpBelt.Controllers
                 int userId = logged.Id;
                 HttpContext.Session.SetInt32("loggedId", userId);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GameSelect", "Home");
             }
             return View("Index", user);
         }
@@ -108,7 +103,7 @@ namespace C_SharpBelt.Controllers
             int userId = logged.Id;
             HttpContext.Session.SetInt32("loggedId", userId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GameSelect", "Home");
         }
 
         [HttpGet]

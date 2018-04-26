@@ -35,3 +35,43 @@ body {
         display: none;
     }
 }
+
+
+.Registration, .Login {
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+    text-align: right;
+}
+
+form ul {
+    text-align: right;
+    list-style-type: none;
+}
+
+span {
+    color: red;
+}
+
+.logged {
+    padding-top: 8px;
+    color: white;
+    text-align: right;
+    margin-left: 100px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 5px;
+}
+
+textarea {
+    resize: none;
+}

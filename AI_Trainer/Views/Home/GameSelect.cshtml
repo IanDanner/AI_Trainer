@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div>
+    <h4>Welcome @ViewBag.Logged.FirstName</h4>
+</div>
+<div id="gametable">
+    <h2>Join Game</h2>
+    <span>@TempData["Error"]</span>
+    <div class="col-6">&nbsp;</div>
+    <div class="col-6">
+        <label>Username <input type="text" id="PlayerName" /></label>
+        <label>AI Name <input type="text" id="AIName" /></label>
+        <select id="GameId">
+            @foreach (Game game in ViewBag.Games)
+            {
+                if (game.Players.Count <= 1)
+                {
+                    <option value="@game.Id">@game.Name</option>
+                }
+            }
+        </select>
+        <input type="button" id="joinButton" value="Join Game" />
+        <input type="button" id="createButton" value="Create New Game" />
+    </div>
+    <br />
+    <h2>Active Games</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Game Name</th>
+                <th>Game Host</th>
+                <th>Player Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Game game in ViewBag.Games)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@game.Creator.FirstName</td>
+                    @if (game.Players.Count > 1)
+                    {
+                        <td>Full</td>
+                    }
+                    else
+                    {
+                        <td>Open</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <input type="hidden" id="userInput" value="@ViewBag.Logged.FirstName" />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+@*<script src="~/js/es5-chat.js"></script>*@

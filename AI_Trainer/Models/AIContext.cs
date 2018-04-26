@@ -7,5 +7,7 @@ namespace AI_Trainer.Models
         // base() calls the parent class' constructor passing the "options" parameter along
         public AIContext(DbContextOptions<AIContext> options) : base(options) { }
         public DbSet<AI_Trainer.Models.User> users { get; set; }
+        public DbSet<AI_Trainer.Models.Game> games { get; set; }
+        public DbSet<AI_Trainer.Models.Player> players { get; set; }
     }
 }

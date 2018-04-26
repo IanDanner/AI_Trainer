@@ -7,7 +7,7 @@
 // See Es5-chat.js for a Babel transpiled version of the following code:
 
 const connection = new signalR.HubConnection(
-    "/chathub", { logger: signalR.LogLevel.Information });
+    "/gamehub", { logger: signalR.LogLevel.Information });
 
 connection.on("SendAction", function (sender, action) {
     const encodedMsg = sender + " " + action;
@@ -28,6 +28,15 @@ document.getElementById("sendButton").addEventListener("click", event => {
     const message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(err => console.error);
     event.preventDefault();
+});
+
+document.getElementById("joinButton").addEventListener("click", event => {
+    const PlayerName = document.getElementById("PlayerName").value;
+    const AIName = document.getElementById("AIName").value;
+    const GameId = document.getElementById("GameId").value;
+    connection.invoke("JoinGame", PlayerName, AIName, GameId).catch(err => console.error);
+    event.preventDefault();
+
 });
 
 connection.start().catch(err => console.error);

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AI_Trainer.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace AI_Trainer.Controllers
 {
@@ -20,6 +19,26 @@ namespace AI_Trainer.Controllers
 
         [HttpGet]
         [Route("Home")]
+        public IActionResult GameSelect()
+        {
+            int? loggedId = HttpContext.Session.GetInt32("loggedId");
+            if (loggedId == null)
+            {
+                return RedirectToAction("Index", "LoginReg");
+            }
+
+
+            User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
+
+            List<Game> games = _context.games.Include(people => people.Players).ThenInclude(who => who.PlayerInfo).OrderBy(time => time.Created_at).ToList();
+
+            ViewBag.Logged = logged;
+            ViewBag.Games = games;
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Game")]
         public IActionResult Index()
         {
             int? loggedId = HttpContext.Session.GetInt32("loggedId");
@@ -27,7 +46,11 @@ namespace AI_Trainer.Controllers
             {
                 return RedirectToAction("Index", "LoginReg");
             }
+            
+
             User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
+
+            HttpContext.Session.SetString("UserName", logged.FirstName);
 
             ViewBag.Logged = logged;
             return View();

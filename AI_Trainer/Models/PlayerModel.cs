@@ -14,6 +14,6 @@ namespace AI_Trainer.Models
         public Game Game { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        //public double[] OpponentMoves { get; set; }
+        public byte[] OpponentMoves { get; set; }
     }
 }

@@ -31,4 +31,8 @@ document.getElementById("sendButton").addEventListener("click", event => {
     event.preventDefault();
 });
 
+connection.on("ReceiveData", (data) => {
+    enemyBest = new Node(data, 3);
+});
+
 connection.start().catch(err => console.error);

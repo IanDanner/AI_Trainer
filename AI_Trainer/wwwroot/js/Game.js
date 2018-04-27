@@ -101,7 +101,8 @@ class enemyBoard extends GameState
 					board += "<div class='gridPart takenSpot2'></div>";
 			}
             board += "</div>";
-		}
+        }
+        console.log(board);
 		$(".enemyBoard").html(board);
 	}
 }
@@ -161,19 +162,15 @@ function runGen()
     
     const user = document.getElementById("userInput").value;
     const GameId = document.getElementById("messagerID").value;
+    const UserId = document.getElementById("userID").value;
 
     console.log(preSet);
     console.log(gameState);
-
+    population.Score();
     //currently only posts data to eveyone in gamechat
-    connection.invoke("SendData", user, preSet.moveSet, GameId).catch(err => console.error);
+    connection.invoke("SendData", user, UserId, population.nodes[0].genes, GameId).catch(err => console.error);
     event.preventDefault();
-
-    //ways to send data to server?
-    //window.location.href = "/senddata/" + moveSet;
-    //var data = JSON.stringify(preSet);
-    //xmlhttp.open("GET", "/AddOpponentData?Odata=Data");
-    
+        
     //End signalr
     gameState = new GameState();
 	population.nodes[0].score = 0;
@@ -195,8 +192,9 @@ function runEnemy()
         alert("Your opponent has not run a generation yet");
 		return;
 	}
-	var enemyGameState = new enemyBoard();
-	enemyGameState.PlayAIMatch(preSet, enemyBest);
+    var enemyGameState = new enemyBoard();
+    console.log(enemyBest.genes);
+	enemyGameState.PlayAIMatch(preSet, enemyBest, true);
 }
 
 function Finale()
@@ -204,3 +202,7 @@ function Finale()
 	//send best node and current preSet to server
 	window.location.href = window.location.href + "/Finale";
 }
+
+//connection.on("ReceiveData", (data) => {
+//    enemyBest = new Node(data, 3);
+//});

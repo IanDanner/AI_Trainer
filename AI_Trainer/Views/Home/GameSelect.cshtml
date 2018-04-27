@@ -12,7 +12,7 @@
         <select id="GameId">
             @foreach (Game game in ViewBag.Games)
             {
-                if (game.Players.Count <= 1)
+                if (game.Players.Count <= 2)
                 {
                     <option value="@game.Id">@game.Name</option>
                 }

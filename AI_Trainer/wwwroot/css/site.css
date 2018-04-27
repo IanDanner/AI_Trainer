@@ -131,6 +131,10 @@ body
     width: 25px;
     height: 25px;
 }
+.enemyBoard .gridRow
+{
+    height: 25px;
+}
 
 .gamechat, .gameinfo{
     display: inline-block;

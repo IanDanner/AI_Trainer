@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using AI_Trainer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace AI_Trainer.Controllers
 {
@@ -99,21 +100,25 @@ namespace AI_Trainer.Controllers
             
             return RedirectToAction("Index", new { gameId = newGame.Id });
         }
-
-        [HttpGet]
-        [HttpPost]
-        [Route("AddOpponentData/{data}")]
-        public IActionResult AddOpponentData()
+        
+        public void AddOpponentData(string playername, int[] data, string GameID)
         {
             int? loggedId = HttpContext.Session.GetInt32("loggedId");
-            if (loggedId == null)
+
+            int gameid = Int32.Parse(GameID);
+
+            Player existing = _context.players.Where(we => we.UserId == loggedId && we.GameId == gameid).SingleOrDefault();
+            User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
+
+
+            if(logged.FirstName != playername)
             {
-                return RedirectToAction("Index", "LoginReg");
+                existing.OpponentMoves = data.Select(x=>(byte)x).ToArray();
+                _context.SaveChanges();
+
             }
-
-            //ADD PASSED IN JSON FROM JS TO PLAYER MODEL
-
-            return RedirectToAction();
+            
+            return;
         }
 
         //[HttpGet]

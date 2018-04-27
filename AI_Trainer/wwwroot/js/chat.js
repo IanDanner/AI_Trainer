@@ -39,4 +39,6 @@ document.getElementById("joinButton").addEventListener("click", event => {
     return window.location.href = "/game/"+GameId;
 });
 
+
+
 connection.start().catch(err => console.error);

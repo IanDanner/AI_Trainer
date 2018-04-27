@@ -60,6 +60,17 @@ namespace AI_Trainer.Hubs
             await Clients.Others.SendAsync("ReceiveData", data);
         }
 
+        public async Task SendFinale(string user, string userId, int[] data, int[] preSet, string GameID)
+        {
+            //homeController.AddOpponentData(user, data, GameID);
+
+            int gameid = Int32.Parse(GameID);
+            int userid = Int32.Parse(userId);
+
+            
+            await Clients.Others.SendAsync("ReceiveFinale", data, preSet);
+        }
+
         public async Task JoinGame(string user, string GameID)
         {
             await Clients.All.SendAsync("SendAction", user, "joined the game", GameID);

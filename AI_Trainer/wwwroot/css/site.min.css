@@ -86,3 +86,17 @@ body {
     width: 25px;
     height: 25px;
 }
+
+.enemyBoard .gridRow {
+    height: 25px;
+}
+
+.gamechat, .gameinfo {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+.finale {
+    display: none;
+}

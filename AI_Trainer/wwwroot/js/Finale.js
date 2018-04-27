@@ -111,9 +111,5 @@ var enemyBest;
 var enemyChallenge
 $(document).ready(function ()
 {
-	//get info from server selfbest/enemybest and selfChallenge/enemyChallenge
-	gameState = new GameState();
-	gameState.PlayAIMatch(selfBest, enemyChallenge);
-	var enemyGameState = new enemyBoard();
-	enemyGameState.PlayAIMatch(enemyBest, enemyChallenge);
+
 });

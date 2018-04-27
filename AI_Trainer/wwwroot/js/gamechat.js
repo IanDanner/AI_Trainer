@@ -35,4 +35,37 @@ connection.on("ReceiveData", (data) => {
     enemyBest = new Node(data, 3);
 });
 
+connection.on("ReceiveFinale", (best, challenge) => {
+
+    enemyBest = new Node(best, 3);
+    enemyChallenge = new PreSet(challenge, 2);
+    $(".main").attr("style", "display: none;");
+    $(".finale").attr("style", "display: inline-block;");
+    gameState = new GameState();
+    population.Score();
+    if (calledFinale == false) {
+        
+        const user = document.getElementById("userInput").value;
+        const GameId = document.getElementById("messagerID").value;
+        const UserId = document.getElementById("userID").value;
+        connection.invoke("SendFinale", user, UserId, population.nodes[0].genes, preSet.moveSet, GameId).catch(err => console.error);
+        event.preventDefault();
+    }
+    selfBest = new Node(population.nodes[0].genes, 3);
+    gameState.PlayAIMatch(enemyChallenge, selfBest, true);
+    var enemyGameState = new enemyBoard();
+    enemyGameState.PlayAIMatch(preSet, enemyBest, true);
+    if (enemyBest.score > selfBest.score) {
+        console.log("blah1");
+        $(".winner").text("You Lose!");
+    }
+    else if (enemyBest.score < selfBest.score) {
+        console.log("blah2");
+        $(".winner").text("You Win!");
+    }
+    else {
+        console.log("blah3");
+        $(".winner").text("Tie!")
+    }
+});
 connection.start().catch(err => console.error);

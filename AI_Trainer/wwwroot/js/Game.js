@@ -102,7 +102,6 @@ class enemyBoard extends GameState
 			}
             board += "</div>";
         }
-        console.log(board);
 		$(".enemyBoard").html(board);
 	}
 }
@@ -112,6 +111,7 @@ var count = 0;
 var setting = false;
 var preSet;
 var enemyBest;
+var calledFinale = false;
 $(document).ready(function()
 {
 	population = new Population(3);
@@ -138,7 +138,6 @@ $(document).keypress(function(e)
             preSet.moveSet.push(2);
 		}
 		preSet.nextMove(gameState.player1, gameState.player2, gameState.board);
-		console.log(preSet.moveSet, preSet.moveCount);
 		gameState.Render();
 	}
 });
@@ -151,7 +150,6 @@ function runGen()
 		population.Score();
 		population.NewSetSingle();
 		random++;
-		console.log(random);
 	}
 	count++;
 	if (count === 10)
@@ -164,8 +162,6 @@ function runGen()
     const GameId = document.getElementById("messagerID").value;
     const UserId = document.getElementById("userID").value;
 
-    console.log(preSet);
-    console.log(gameState);
     population.Score();
     //currently only posts data to eveyone in gamechat
     connection.invoke("SendData", user, UserId, population.nodes[0].genes, GameId).catch(err => console.error);
@@ -175,7 +171,6 @@ function runGen()
     gameState = new GameState();
 	population.nodes[0].score = 0;
 	gameState.PlayAIMatch(preSet, population.nodes[0], true);
-    console.log(population.nodes[0].score);
 }
 
 function setPreSet()
@@ -193,16 +188,20 @@ function runEnemy()
 		return;
 	}
     var enemyGameState = new enemyBoard();
-    console.log(enemyBest.genes);
 	enemyGameState.PlayAIMatch(preSet, enemyBest, true);
 }
 
 function Finale()
 {
-	//send best node and current preSet to server
-	window.location.href = window.location.href + "/Finale";
-}
+    const user = document.getElementById("userInput").value;
+    const GameId = document.getElementById("messagerID").value;
+    const UserId = document.getElementById("userID").value;
 
-//connection.on("ReceiveData", (data) => {
-//    enemyBest = new Node(data, 3);
-//});
+    preSet.moveSet;
+    population.Score();
+    calledFinale = true;
+    connection.invoke("SendFinale", user, UserId, population.nodes[0].genes, preSet.moveSet, GameId).catch(err => console.error);
+    event.preventDefault();
+	//send best node and current preSet to server
+	//window.location.href = window.location.href + "/Finale";
+}

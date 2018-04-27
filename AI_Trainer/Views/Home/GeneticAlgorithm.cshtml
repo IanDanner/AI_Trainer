@@ -4,13 +4,20 @@
 
 <script src="~/js/GeneticAlgorithm.js"></script>
 <script src="~/js/Game.js"></script>
-<div class="gameinfo">
+<div class="gameinfo main">
     <div class="board"></div>
     <p class="victory"></p>
     <button class="runGen" onclick="runGen()">Run Generation</button>
     <button class="setPreSet" onclick="setPreSet()">Set PreSet MoveSet</button>
     <div class="enemyBoard"></div>
     <button onclick="runEnemy()">Run Enemy AI</button>
+</div>
+
+<div class="gameinfo finale">
+    <h1>Finale</h1>
+    <h3 class="winner"></h3>
+    <div class="board"></div>
+    <div class="enemyBoard"></div>
 </div>
 
 <div class="gamechat">

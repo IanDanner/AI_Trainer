@@ -141,3 +141,7 @@ body
     width: 49%;
     vertical-align: top;
 }
+
+.finale{
+    display: none;
+}

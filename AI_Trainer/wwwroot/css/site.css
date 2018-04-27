@@ -42,10 +42,14 @@ body {
     width: 400px;
     vertical-align: top;
     text-align: right;
+    margin: 0;
 }
 
 form ul {
     text-align: right;
+}
+
+ul {
     list-style-type: none;
 }
 
@@ -97,8 +101,8 @@ body
 {
     width: 50px;
     height: 50px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: inline-block;
 }
 
@@ -126,4 +130,10 @@ body
 {
     width: 25px;
     height: 25px;
+}
+
+.gamechat, .gameinfo{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
 }

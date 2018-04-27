@@ -6,10 +6,14 @@ body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;paddin
     width: 400px;
     vertical-align: top;
     text-align: right;
+    margin: 0px;
+}
+
+form ul {
+    text-align: right;
 }
 
 ul {
-    text-align: right;
     list-style-type: none;
 }
 
@@ -36,29 +40,49 @@ th, td {
     padding: 5px;
 }
 
-.product img, image {
-    width: 100px;
-}
-
-.product {
-    width: 180px;
-    display: inline-block;
-    text-align: center;
-    vertical-align: top;
-}
-
-.newProduct {
-    width: 20%;
-    display: inline-block;
-}
-
-.allProducts {
-    margin-left: 10px;
-    width: 78%;
-    display: inline-block;
-    vertical-align: top;
-}
-
 textarea {
     resize: none;
+}
+
+body {
+    text-align: center;
+}
+
+.board {
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+}
+
+.gridRow {
+    height: 50px;
+}
+
+.gridPart {
+    width: 50px;
+    height: 50px;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+}
+
+.empty {
+    background-color: blue;
+}
+
+.player {
+    background-color: red;
+}
+
+.takenSpot1 {
+    background-color: green;
+}
+
+.takenSpot2 {
+    background-color: orange;
+}
+
+.enemyBoard .gridPart {
+    width: 25px;
+    height: 25px;
 }

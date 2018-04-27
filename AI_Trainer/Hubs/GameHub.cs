@@ -21,6 +21,11 @@ namespace AI_Trainer.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message, GameID);
         }
 
+        public async Task SendData(string user, int[] data, string GameID)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, data, GameID);
+        }
+
         public async Task JoinGame(string user, string GameID)
         {
             await Clients.All.SendAsync("SendAction", user, "joined the game", GameID);

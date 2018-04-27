@@ -10,7 +10,7 @@ namespace AI_Trainer.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int UserId { get; set; }
-        public User Creator { get; set; }
+        public User User { get; set; }
         public Game()
         {
             Players = new List<Player>();

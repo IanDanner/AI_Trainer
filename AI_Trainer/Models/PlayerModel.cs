@@ -11,8 +11,9 @@ namespace AI_Trainer.Models
         public string Username { get; set; }
         public string AIName { get; set; }
         public int GameId { get; set; }
-        public Game ActiveGame { get; set; }
+        public Game Game { get; set; }
         public int UserId { get; set; }
-        public User PlayerInfo { get; set; }
+        public User User { get; set; }
+        //public double[] OpponentMoves { get; set; }
     }
 }

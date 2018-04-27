@@ -30,7 +30,7 @@ namespace AI_Trainer.Controllers
 
             User logged = _context.users.Where(we => we.Id == loggedId).SingleOrDefault();
 
-            List<Game> games = _context.games.Include(person => person.Creator).Include(people => people.Players).ThenInclude(who => who.PlayerInfo).OrderBy(time => time.Created_at).ToList();
+            List<Game> games = _context.games.Include(person => person.User).Include(people => people.Players).ThenInclude(who => who.User).OrderBy(time => time.Created_at).ToList();
 
             ViewBag.Logged = logged;
             ViewBag.Games = games;
@@ -57,11 +57,11 @@ namespace AI_Trainer.Controllers
                 Player newPlayer = new Player
                 {
                     UserId = logged.Id,
-                    PlayerInfo = logged,
+                    User = logged,
                     Username = logged.FirstName,
                     AIName = "skynet",
                     GameId = gameId,
-                    ActiveGame = game,
+                    Game = game,
                 };
 
                 _context.players.Add(newPlayer);
@@ -75,8 +75,9 @@ namespace AI_Trainer.Controllers
         }
 
         [HttpGet]
+        [HttpPost]
         [Route("CreateGame")]
-        public IActionResult CreateGame(string gameName)
+        public IActionResult CreateGame(string GameName)
         {
             int? loggedId = HttpContext.Session.GetInt32("loggedId");
             if (loggedId == null)
@@ -88,14 +89,31 @@ namespace AI_Trainer.Controllers
 
             Game newGame = new Game
             {
+                Name = GameName,
                 UserId = logged.Id,
-                Creator = logged,
+                User = logged,
             };
 
             _context.games.Add(newGame);
             _context.SaveChanges();
             
             return RedirectToAction("Index", new { gameId = newGame.Id });
+        }
+
+        [HttpGet]
+        [HttpPost]
+        [Route("AddOpponentData/{data}")]
+        public IActionResult AddOpponentData()
+        {
+            int? loggedId = HttpContext.Session.GetInt32("loggedId");
+            if (loggedId == null)
+            {
+                return RedirectToAction("Index", "LoginReg");
+            }
+
+            //ADD PASSED IN JSON FROM JS TO PLAYER MODEL
+
+            return RedirectToAction();
         }
 
         //[HttpGet]

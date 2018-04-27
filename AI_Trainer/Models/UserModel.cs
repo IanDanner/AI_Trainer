@@ -12,7 +12,12 @@ namespace AI_Trainer.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public Player Playing { get; set; }
-        public Game CreatedGame { get; set; }
+        public User()
+        {
+            Playing = new List<Player>();
+            CreatedGames = new List<Game>();
+        }
+        public List<Player> Playing { get; set; }
+        public List<Game> CreatedGames { get; set; }
     }
 }

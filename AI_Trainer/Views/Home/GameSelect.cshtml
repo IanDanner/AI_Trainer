@@ -4,7 +4,7 @@
 <div>
     <h4>Welcome @ViewBag.Logged.FirstName</h4>
 </div>
-<div id="gametable">
+<div id="gametable" style="text-align:left">
     <h2>Join Game</h2>
     <span>@TempData["Error"]</span>
     <div class="col-6">&nbsp;</div>
@@ -19,7 +19,12 @@
             }
         </select>
         <input type="button" id="joinButton" value="Join Game" />
-        <input type="button" id="createButton" value="Create New Game" />
+    </div>
+    <div class="col-6">
+        <form action="/CreateGame" method="POST">
+            <label>New Game Name <input type="text" name="GameName"/></label>
+            <input type="submit" value="Create New Game" />
+        </form>
     </div>
     <br />
     <h2>Active Games</h2>
@@ -36,7 +41,7 @@
             {
                 <tr>
                     <td>@game.Name</td>
-                    <td>@game.Creator.FirstName</td>
+                    <td>@game.User.FirstName</td>
                     @if (game.Players.Count > 1)
                     {
                         <td>Full</td>
@@ -53,7 +58,7 @@
 
 
 
-<div class="container">
+<div class="container" style="text-align:left">
     <div class="row">&nbsp;</div>
     <div class="row">
         <h4>GameHub Messanger</h4>
@@ -71,7 +76,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">&nbsp;</div>
         <div class="col-6">
             <ul id="messanger0"></ul>
         </div>

@@ -1,4 +1,5 @@
 'use strict';
+
 class GameState
 {
 	constructor()
@@ -35,7 +36,7 @@ class GameState
 				if(this.board[iii][zzz] === 3)
 					board += "<div class='gridPart takenSpot2'></div>";
 			}
-			board += "</div>"
+            board += "</div>";
 		}
 		$(".board").html(board);
 	}
@@ -45,7 +46,7 @@ class GameState
 		var random = 0;
 		while(random !== Player1.moveSet.length)
 		{
-			var status = Player1.nextMove(this.player1, this.player2, this.board)
+            var status = Player1.nextMove(this.player1, this.player2, this.board);
 			if(status === 1)
 			{
 				$(".victory").text("Player 1 Wins!");
@@ -57,7 +58,7 @@ class GameState
 				$(".victory").text("Player 2 Wins!");
 				break;
 			}
-			status = Player2.nextMove(this.player2, this.player1, this.board)
+            status = Player2.nextMove(this.player2, this.player1, this.board);
 			if(status === 1)
 			{
 				$(".victory").text("Player 2 Wins");
@@ -99,7 +100,7 @@ class enemyBoard extends GameState
 				if (this.board[iii][zzz] === 3)
 					board += "<div class='gridPart takenSpot2'></div>";
 			}
-			board += "</div>"
+            board += "</div>";
 		}
 		$(".enemyBoard").html(board);
 	}
@@ -133,7 +134,7 @@ $(document).keypress(function(e)
 		}
 		else if (e.keyCode === 97)
 		{
-			preSet.moveSet.push(2)
+            preSet.moveSet.push(2);
 		}
 		preSet.nextMove(gameState.player1, gameState.player2, gameState.board);
 		console.log(preSet.moveSet, preSet.moveCount);
@@ -152,15 +153,32 @@ function runGen()
 		console.log(random);
 	}
 	count++;
-	if (count == 10)
+	if (count === 10)
 	{
 		Finale();
     }
-    //jklhjklhjkl
+    //Begin signalr
+    
+    const user = document.getElementById("userInput").value;
+    const GameId = document.getElementById("messagerID").value;
+
+    console.log(preSet);
+    console.log(gameState);
+
+    //currently only posts data to eveyone in gamechat
+    connection.invoke("SendData", user, preSet.moveSet, GameId).catch(err => console.error);
+    event.preventDefault();
+
+    //ways to send data to server?
+    //window.location.href = "/senddata/" + moveSet;
+    //var data = JSON.stringify(preSet);
+    //xmlhttp.open("GET", "/AddOpponentData?Odata=Data");
+    
+    //End signalr
     gameState = new GameState();
 	population.nodes[0].score = 0;
 	gameState.PlayAIMatch(preSet, population.nodes[0], true);
-	console.log(population.nodes[0].score)
+    console.log(population.nodes[0].score);
 }
 
 function setPreSet()
@@ -174,7 +192,7 @@ function runEnemy()
 {
 	if (enemyBest === null)
 	{
-		alert("Your opponent has not run a generation yet")
+        alert("Your opponent has not run a generation yet");
 		return;
 	}
 	var enemyGameState = new enemyBoard();
